@@ -4,6 +4,8 @@ from .nodes.CSVPromptSearch import CSVPromptSearch
 
 from .nodes.CSVPromptLoader import CSVPromptLoader
 
+from .nodes.CSVAutoPromptSave import CSVAutoPromptSave
+
 from .py.csv_utils import *
 
 from server import PromptServer
@@ -56,7 +58,8 @@ WEB_DIRECTORY = "./web"
 NODE_CLASS_MAPPINGS = { 
     "CSVPromptSave" : CSVPromptSave ,
     "CSVPromptSearch" : CSVPromptSearch ,
-    "CSVPromptLoader" : CSVPromptLoader                  
+    "CSVPromptLoader" : CSVPromptLoader  , 
+    "CSVAutoPromptSave" : CSVAutoPromptSave ,              
 }
 
 __all__ = ["NODE_CLASS_MAPPINGS" , "WEB_DIRECTORY"]

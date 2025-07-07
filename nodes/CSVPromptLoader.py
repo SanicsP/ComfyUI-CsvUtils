@@ -28,5 +28,6 @@ class CSVPromptLoader :
             raise Exception("The positive prompt is empty")
         
         print("[csv utils] row selected : " , prompt_row)
+        
         return (prompt_row["positive"] , prompt_row["negative"])
 

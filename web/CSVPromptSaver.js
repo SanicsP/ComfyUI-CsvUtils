@@ -84,23 +84,13 @@ async function fetchPrompt(file_path , positive_prompt , negative_prompt) {
 
 
 app.registerExtension({ 
-	name: "CSV-UTILS",
+	name: "CSVPromptSaver",
 	
 	async beforeRegisterNodeDef(nodeType, nodeData, app) {
 		
 		
 		if(nodeType.comfyClass=="CSVPromptSave") {	
 			const original_getExtraMenuOptions = nodeType.prototype.getExtraMenuOptions;
-    	
-			nodeType.prototype.getExtraMenuOptions = function(_, options) {
-        		original_getExtraMenuOptions?.apply(this, arguments);
-        		
-				options.push({
-            		content: "Do something fun",
-					callback: make_submenu
-        		})
-
-    		}   
 		
 		}
 	} ,

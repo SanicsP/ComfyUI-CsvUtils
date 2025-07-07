@@ -45,7 +45,7 @@ function create_prompt_div(pos , neg , search)
 			<p class="csv-u-prompt-span csv-u-pos-span csv-u-p"> 
 				${pos}\t
 			</p>
-
+			<div class="csv-u-delimiter"></div>
 			<p class="csv-u-prompt-span csv-u-neg-span csv-u-p">
 				${neg}
 			</p>
@@ -99,18 +99,21 @@ function createResultWidget() {
 		result_container.className = "csv-u-result-container"
 
 		// result_container.style.height = "100%"
-		let header = document.createElement("h3")
-			result_container.appendChild(header)
-			header.innerText = "Search List" 
-			header.className = "csv-u-header"
+		// let header = document.createElement("h3")
+		// 	result_container.appendChild(header)
+		// 	header.innerText = "Search List" 
+		// 	header.className = "csv-u-header"
 			
 		let search_bar = document.createElement("input")
 			search_bar.type = "text"
 			search_bar.className = "csv-u-search-bar"
+			search_bar.placeholder = "search your prompt..."
 			result_container.appendChild(search_bar)
 		
 		let result_list = document.createElement("div")
-			result_list.style.overflowY = "scroll"
+			result_list.style.overflowY = "auto"
+			result_list.style.overflowX = "hidden"
+
 
 			result_list.style.height = "100%"
 			result_container.appendChild(result_list)
@@ -130,7 +133,7 @@ function createResultWidget() {
 app.registerExtension({ 
 	name: "CSV-UTILS-SEARCH",
 	
-	async loadedGraphNode() {
+	async init() {
 		let style = document.createElement("style") 
 		
 		style.innerHTML = `
@@ -177,29 +180,42 @@ app.registerExtension({
 				}
 
 				.csv-u-search-bar {
-					width : 100%;
+					width : 85%;
 					border : none;
 					margin-bottom : 12px;
+					margin-top : 6px;
+
 					background-color : white;
 					border-radius : 4px;
 					color : black;
 				}
 
 				.csv-u-result-container {
-					background-color : rgb(20, 20, 20);
+					background-color : hsl(0 0% 12.4%);
 					padding : 4px;
 					border-radius : 8px;
+					align-items : center;
 				}
 				.csv-u-p {
-					background-color : rgb(238, 238, 238);
-					box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.42);
+					color : rgb(204 204 204);
+					/*box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.42);*/
 					border-radius : 4px;
-					
-					
+					font-family : sans-serif;
 				}
 				.csv-u-p:hover {
 					transform : scale(1.02);
 					transition: all 0.02s ease-out;
+				}
+				
+				.csv-u-br {
+					background-color : white;
+					color : white;
+					height : 2px;
+				}
+
+				.csv-u-delimiter {
+					width : 2px;
+					background-color: white;
 				}
 		`
 		document.body.appendChild(style)
@@ -243,6 +259,11 @@ app.registerExtension({
 					div.innerHTML = create_prompt_div(filtered_list[i].positive , filtered_list[i].negative , search_bar_widget.value)
 					
 					result_widgets.result_list.appendChild(div)
+
+					let br = document.createElement("div")
+					br.className = "csv-u-br"
+					
+					result_widgets.result_list.appendChild(br)
 				}
 
 				const span_list = Array.from(document.getElementsByClassName("csv-u-prompt-span"))
@@ -264,14 +285,7 @@ app.registerExtension({
 		}
 	} , 
 	
-	async init() {
-	
-	} ,
 
-	async setup()
-	{
-		
-	} 
 	
 	
 })
