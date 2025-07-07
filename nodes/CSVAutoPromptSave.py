@@ -1,4 +1,5 @@
-from ..py.csv_utils import * 
+from ..py.csv_utils import *
+
 class CSVAutoPromptSave : 
     @classmethod
     def INPUT_TYPES(s) : 
@@ -6,8 +7,8 @@ class CSVAutoPromptSave :
         return {
             "required" : {
                 "file_path" : ("STRING",) , 
-                "positive_prompt" : ("STRING",{"default" : "" , "multiline" : False}) ,
-                "negative_prompt" : ("STRING",{"default" : "" , "multiline" : False}) 
+                "positive_prompt" : ("STRING",{"default" : "" , "defaultInput" : True , "forceInput" : True}) ,
+                "negative_prompt" : ("STRING",{"default" : "" , "defaultInput" : True  , "forceInput" : True}) 
             }
         }
     
@@ -15,14 +16,17 @@ class CSVAutoPromptSave :
     
     FUNCTION = "execute"
     
-    RETURN_TYPES = ("STRING" , "STRING")
+    RETURN_TYPES = ()
     
-    RETURN_NAMES = ("positive prompt" , "negative prompt")
+    #RETURN_NAMES = ("positive prompt" , "negative prompt")
     
-    OUTPUT_NODE = False
+    OUTPUT_NODE = True
     
 
     def execute(self , file_path , positive_prompt , negative_prompt) : 
         
-        return (positive_prompt , negative_prompt)
+        if not save_to_csv(file_path , positive_prompt , negative_prompt) : 
+            print("[CSVAutoPromptSaver] the prompt already exist , prompt not saved..")
+        return {}
+        
 

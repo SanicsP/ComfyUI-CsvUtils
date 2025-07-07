@@ -33,6 +33,7 @@ app.registerExtension({
             info_div.className = "csv-u-info-widget"
             
             let info_widget = node.addDOMWidget("info" , "string" , info_div)
+
             
             
             refresh_button_widget.callback = async (path)=> {
@@ -47,6 +48,7 @@ app.registerExtension({
 
                 //console.log("[csv utils] loaded list : " , prompt_array)
             }
+
             
         }
     }

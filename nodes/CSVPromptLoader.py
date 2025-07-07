@@ -22,7 +22,8 @@ class CSVPromptLoader :
     
 
     def execute(self , file_path , row) :
-        prompt_row = get_prompt_row(file_path , row)
+        prompt_list = get_prompt_list(file_path)
+        prompt_row = get_prompt_row(prompt_list, row)
         
         if prompt_row["positive"] == "" : 
             raise Exception("The positive prompt is empty")
