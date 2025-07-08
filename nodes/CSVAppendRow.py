@@ -1,0 +1,37 @@
+from ..py.advanced_csv_utils import *
+
+class CSVAppendRow : 
+    @classmethod
+    def INPUT_TYPES(s) : 
+
+        return {
+            "required" : {
+                "file_path" : ("STRING",) , 
+            }
+        }
+    
+    CATEGORY = "csv_tools/advanced"
+    
+    FUNCTION = "execute"
+    
+    RETURN_TYPES = ()
+    
+    #RETURN_NAMES = ("positive prompt" , "negative prompt")
+    
+    OUTPUT_NODE = True
+    
+
+    def execute(self , file_path , **kwargs) : 
+        row : dict = {}
+        for field , value in kwargs.items() : 
+            row[field] = value
+        
+        fieldnames :list = list(row.keys())
+
+
+        CSVManager.appendRow(file_path , row , fieldnames)
+
+        print("csv utils row saved with succes !  : " , row , "fieldnames:" , fieldnames)
+        return {}
+        
+

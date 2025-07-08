@@ -7,8 +7,8 @@ class CSVAutoPromptSave :
         return {
             "required" : {
                 "file_path" : ("STRING",) , 
-                "positive_prompt" : ("STRING",{"default" : "" , "defaultInput" : True , "forceInput" : True}) ,
-                "negative_prompt" : ("STRING",{"default" : "" , "defaultInput" : True  , "forceInput" : True}) 
+                "positive_prompt" : ("STRING",{"default" : "" ,  "forceInput" : True}) ,
+                "negative_prompt" : ("STRING",{"default" : "" , "forceInput" : True}) 
             }
         }
     

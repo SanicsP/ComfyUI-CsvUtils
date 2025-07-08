@@ -6,7 +6,20 @@ from .nodes.CSVPromptLoader import CSVPromptLoader
 
 from .nodes.CSVAutoPromptSave import CSVAutoPromptSave
 
+from .nodes.CSVAppendRow import CSVAppendRow
+
+from .nodes.LoadCSVFile import LoadCSVFile
+
+from .nodes.SelectRow import SelectRow
+
+from .nodes.SelectDataByField import SelectDataByField
+
+
+
+
 from .py.csv_utils import *
+
+from .py.advanced_csv_utils import *
 
 from server import PromptServer
 
@@ -50,6 +63,18 @@ async def get_prompts_list(request) :
 
         return web.json_response({"prompt_list" : prompt_list})
     
+@PromptServer.instance.routes.post("/csv_utils/get_file")
+async def get_csv_file(request) :
+    
+    json_data = await request.json()
+    
+    file_data = CSVManager.loadFile(json_data["file_path"])
+
+
+
+    return web.json_response(file_data)
+
+
 
 print("[CSV utils] csv server routes init")
 
@@ -59,7 +84,11 @@ NODE_CLASS_MAPPINGS = {
     "CSVPromptSave" : CSVPromptSave ,
     "CSVPromptSearch" : CSVPromptSearch ,
     "CSVPromptLoader" : CSVPromptLoader  , 
-    "CSVAutoPromptSave" : CSVAutoPromptSave ,              
+    "CSVAutoPromptSave" : CSVAutoPromptSave , 
+    "CSVAppendRow" : CSVAppendRow,
+    "LoadCSVFile" : LoadCSVFile ,
+    "SelectRow" : SelectRow , 
+    "SelectDataByField" : SelectDataByField
 }
 
 __all__ = ["NODE_CLASS_MAPPINGS" , "WEB_DIRECTORY"]
