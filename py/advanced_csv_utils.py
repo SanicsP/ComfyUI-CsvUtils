@@ -10,8 +10,6 @@ class CSVManager :
                 reader = csv.DictReader(csv_file , delimiter=delimiter)
                 
                 fieldnames = reader.fieldnames
-
-                print("[csv utils] fieldnames : " , fieldnames)
                 
                 data : list[dict] = []
                

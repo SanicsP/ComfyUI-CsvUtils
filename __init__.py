@@ -14,6 +14,7 @@ from .nodes.SelectRow import SelectRow
 
 from .nodes.SelectDataByField import SelectDataByField
 
+from .nodes.CSVAdvancedSearch import CSVAdvancedSearch
 
 
 
@@ -26,6 +27,8 @@ from server import PromptServer
 from aiohttp import web
 
 from aiohttp import web
+
+import os
 
 
 
@@ -62,17 +65,27 @@ async def get_prompts_list(request) :
         #show_prompt_list(prompt_list)
 
         return web.json_response({"prompt_list" : prompt_list})
-    
+
+
+
 @PromptServer.instance.routes.post("/csv_utils/get_file")
 async def get_csv_file(request) :
     
     json_data = await request.json()
     
-    file_data = CSVManager.loadFile(json_data["file_path"])
+    file_data = {}
+    
+    file_path = json_data["file_path"]
 
-
-
+    if not os.path.exists(os.path.exists(file_path)) : 
+        return web.Response("File not found" , status=404 )
+    
+    file_data = CSVManager.loadFile(file_path)
+      
     return web.json_response(file_data)
+
+  
+
 
 
 
@@ -88,7 +101,8 @@ NODE_CLASS_MAPPINGS = {
     "CSVAppendRow" : CSVAppendRow,
     "LoadCSVFile" : LoadCSVFile ,
     "SelectRow" : SelectRow , 
-    "SelectDataByField" : SelectDataByField
+    "SelectDataByField" : SelectDataByField ,
+    "CSVAdvancedSearch" : CSVAdvancedSearch
 }
 
 __all__ = ["NODE_CLASS_MAPPINGS" , "WEB_DIRECTORY"]
