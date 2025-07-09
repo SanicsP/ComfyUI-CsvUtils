@@ -24,6 +24,10 @@ class LoadCSVFile :
     RETURN_NAMES = ("csv_data" ,)
     
     OUTPUT_NODE = False
+
+    DESCRIPTION = """
+        Loads all data from csv file into a list of rows, works with "select row from csv data" node
+    """
     
 
     def execute(self , file_path) : 

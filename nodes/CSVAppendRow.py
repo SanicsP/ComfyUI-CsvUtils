@@ -20,6 +20,9 @@ class CSVAppendRow :
     
     OUTPUT_NODE = True
     
+    DESCRIPTION = """
+        Add a new Row in a specific csv file. Frontend only
+    """
 
     def execute(self , file_path , **kwargs) : 
         row : dict = {}

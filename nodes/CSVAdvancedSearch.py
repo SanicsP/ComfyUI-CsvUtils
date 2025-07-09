@@ -19,6 +19,11 @@ class CSVAdvancedSearch :
     #RETURN_NAMES = ""
     
     OUTPUT_NODE = False
+
+    DESCRIPTION = """
+        Returns one or more results from the available rows in any csv file (provided it is valid) based on the query in the search bar.
+        This node only works in frontend , dont use it if you plan to use your workflow with the api
+    """
     
 
     def execute(self , file_path) : 

@@ -21,7 +21,10 @@ class SelectRow :
     
     OUTPUT_NODE = False
     
-
+    DESCRIPTION = """
+        Select a row from a list of rows, this node works with: "load csv data from file" and "select data from csv row"
+    """
+    
     def execute(self , csv_data , row) : 
         selected_row = csv_data["rows"][row]
         print("csv utils , selected row : " , selected_row)

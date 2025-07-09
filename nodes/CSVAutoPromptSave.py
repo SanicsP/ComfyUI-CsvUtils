@@ -21,6 +21,10 @@ class CSVAutoPromptSave :
     #RETURN_NAMES = ("positive prompt" , "negative prompt")
     
     OUTPUT_NODE = True
+
+    DESCRIPTION = """
+        Save positives and negatives prompts in a specific file.
+    """
     
 
     def execute(self , file_path , positive_prompt , negative_prompt) : 

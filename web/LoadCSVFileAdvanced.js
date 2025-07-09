@@ -20,6 +20,13 @@ async function refresh_outputs(node) {
         output.type = "STRING"
     }
 
+    app.extensionManager.toast.add({
+        severity : "success" , 
+		summary : "csv file loader" , 
+		detail : "outputs updated with succes" , 
+		life : 5000
+    })
+
 } 
 
 app.registerExtension({

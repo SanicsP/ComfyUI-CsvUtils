@@ -24,6 +24,12 @@ class LoadCSVFileAdvanced :
     OUTPUT_NODE = False
     
 
+    DESCRIPTION = """
+        Loads a row from a csv file and dynamically displays the name of each available field, 
+        press the refresh button to update the outputs if you change files. If you get an error make sure to press the refresh button again, 
+        Only use one node instance per workflow, using multiple same instances can cause problems
+    """
+
     def execute(self , file_path , row) : 
         
         csv_data = CSVManager.loadFile(file_path)

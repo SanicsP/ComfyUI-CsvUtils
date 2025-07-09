@@ -21,6 +21,10 @@ class CSVPromptSave :
     
     OUTPUT_NODE = False
     
+    DESCRIPTION = """
+        Saving a positive and negative prompt to a specified file, only works in the frontend, 
+        do not convert widgets to inputs, this will not work, saving is only done via the frontend by pressing the button
+    """
 
     def execute(self , file_path , positive_prompt , negative_prompt) : 
     

@@ -17,6 +17,9 @@ class CSVPromptSearch :
     
     OUTPUT_NODE = False
     
+    DESCRIPTION = """
+        This node allows you to preview the csv file by displaying the prompts.
+    """
 
     def execute(self , file_path) : 
         return {}

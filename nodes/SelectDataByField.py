@@ -21,6 +21,9 @@ class SelectDataByField :
     
     OUTPUT_NODE = False
     
+    DESCRIPTION = """
+        select a field value from a row
+    """
 
     def execute(self , selected_row , fieldname) : 
         

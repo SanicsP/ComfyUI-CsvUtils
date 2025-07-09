@@ -107,7 +107,16 @@ NODE_CLASS_MAPPINGS = {
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "LoadCSVFileAdvanced": "Advanced csv file loader"
+    "CSVPromptSave" : "Save prompt to CSV file" ,
+    "CSVPromptSearch" : "Search Prompt from CSV file" ,
+    "CSVPromptLoader" : "Load Prompt "  , 
+    "CSVAutoPromptSave" : "Save prompt to CSV file(auto)" , 
+    "CSVAppendRow" : "Append Row to CSV File",
+    "LoadCSVFile" : "Load CSV File Data" ,
+    "SelectRow" : "Select Row From CSV Data" , 
+    "SelectDataByField" : "Select Data From CSV Row" ,
+    "CSVAdvancedSearch" : "Search From CSV File" , 
+    "LoadCSVFileAdvanced" : "Load Row From File"
 }
 __all__ = ["NODE_CLASS_MAPPINGS" , "NODE_DISPLAY_NAME_MAPPINGS" , "WEB_DIRECTORY"]
 
