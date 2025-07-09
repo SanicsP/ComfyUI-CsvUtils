@@ -26,7 +26,8 @@ class SelectDataByField :
     """
 
     def execute(self , selected_row , fieldname) : 
-        
-        return (selected_row[fieldname],)
-        
+        try : 
+            return (selected_row[fieldname],)
+        except KeyError :
+            raise KeyError("the field" , fieldname , "doesn't exists. the actual fields : " , selected_row.keys())
 

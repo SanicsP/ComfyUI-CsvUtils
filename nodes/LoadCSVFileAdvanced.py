@@ -17,9 +17,9 @@ class LoadCSVFileAdvanced :
     
     FUNCTION = "execute"
     
-    RETURN_TYPES = ("STRING" , )
+    RETURN_TYPES = ("STRING",)
     
-    RETURN_NAMES = ("STRING",)
+    #RETURN_NAMES = ("STRING",)
     
     OUTPUT_NODE = False
     

@@ -6,7 +6,7 @@ app.registerExtension({
     name: "csv_utils.CSVAppendRow", 
 
     async setup() {
-
+        
     } ,
 
     async beforeRegisterNodeDef(nodeType, nodeData, app) {

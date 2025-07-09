@@ -25,7 +25,15 @@ class CSVAppendRow :
     """
 
     def execute(self , file_path , **kwargs) : 
+        
+        if kwargs == {} : 
+            raise RuntimeError("The fields are empty")
+        
+        if all(map(lambda s : len(s) == 0 , kwargs.values())) : 
+            raise RuntimeError("You have to provide at least one non-empty value in the row")
         row : dict = {}
+
+
         for field , value in kwargs.items() : 
             row[field] = value
         
