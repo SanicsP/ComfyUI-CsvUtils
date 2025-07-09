@@ -9,11 +9,6 @@ class CSVAdvancedSearch :
                 "file_path" : ("STRING",) , 
             }
         }
-    
-    @classmethod 
-    def IS_CHANGED(file_path) : 
-        csv_data = CSVManager.loadFile(file_path)
-        return (csv_data,)
         
     CATEGORY = "csv_tools/advanced"
     

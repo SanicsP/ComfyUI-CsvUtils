@@ -16,7 +16,7 @@ from .nodes.SelectDataByField import SelectDataByField
 
 from .nodes.CSVAdvancedSearch import CSVAdvancedSearch
 
-
+from .nodes.LoadCSVFileAdvanced import LoadCSVFileAdvanced
 
 from .py.csv_utils import *
 
@@ -102,8 +102,12 @@ NODE_CLASS_MAPPINGS = {
     "LoadCSVFile" : LoadCSVFile ,
     "SelectRow" : SelectRow , 
     "SelectDataByField" : SelectDataByField ,
-    "CSVAdvancedSearch" : CSVAdvancedSearch
+    "CSVAdvancedSearch" : CSVAdvancedSearch , 
+    "LoadCSVFileAdvanced" : LoadCSVFileAdvanced
 }
 
-__all__ = ["NODE_CLASS_MAPPINGS" , "WEB_DIRECTORY"]
+NODE_DISPLAY_NAME_MAPPINGS = {
+    "LoadCSVFileAdvanced": "Advanced csv file loader"
+}
+__all__ = ["NODE_CLASS_MAPPINGS" , "NODE_DISPLAY_NAME_MAPPINGS" , "WEB_DIRECTORY"]
 

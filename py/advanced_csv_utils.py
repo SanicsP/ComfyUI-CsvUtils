@@ -23,8 +23,13 @@ class CSVManager :
                     "rows" : data ,
                     "row-count" : len(data)
                 }
+            
         except FileNotFoundError : 
             print("[CSVutils/CSVManager] file not found")
+            return {}
+        except Exception : 
+            print("[CSVutils/CSVManager] error while loading the file")
+
 
     def appendRow(file_path : str , row  : dict , fieldnames : list[str] , delimiter : str=",") : 
         

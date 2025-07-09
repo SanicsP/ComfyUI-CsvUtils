@@ -94,7 +94,6 @@ const advanced_search_style= `
 
 
     .csv-u-result-table  td {
-        cursor : pointer;
         padding : var(--padding2);
         boder-radius : var(--border-2);
     }

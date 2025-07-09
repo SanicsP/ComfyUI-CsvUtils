@@ -21,6 +21,8 @@ app.registerExtension({
             const searchComponent = SearchComponent.create_search_component()
             
             node.addDOMWidget("search-results" , 0 , searchComponent.root)
+            
+            
 
             searchComponent.search_bar.addEventListener("input" , ()=>{
                 SearchComponent.onInput(node , searchComponent)
