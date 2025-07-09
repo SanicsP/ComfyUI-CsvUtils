@@ -1,5 +1,4 @@
 
-
 class SelectDataByField : 
     @classmethod
     def INPUT_TYPES(s) : 

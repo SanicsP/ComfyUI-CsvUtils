@@ -1,5 +1,5 @@
 __pycache__/
 *.pyc
 __pycache__
-characters.csv
+*.csv
 *.csv#

@@ -26,8 +26,10 @@ class SelectRow :
     """
     
     def execute(self , csv_data , row) : 
+        if row < 0 : raise IndexError("You can't provide a negative number as index")
+        
         selected_row = csv_data["rows"][row]
-        print("csv utils , selected row : " , selected_row)
+        
         return (selected_row,)
         
 

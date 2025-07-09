@@ -32,6 +32,7 @@ class LoadCSVFile :
 
     def execute(self , file_path) : 
         csv_data = CSVManager.loadFile(file_path)
+        if csv_data["rows"] == [] : raise RuntimeError("The csv array is empty")
         return (csv_data,)
         
 

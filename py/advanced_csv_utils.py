@@ -7,40 +7,59 @@ class CSVManager :
         try : 
             with open(file_path , "r" , encoding="utf-8" , newline='') as csv_file :
                 
-                reader = csv.DictReader(csv_file , delimiter=delimiter)
+                reader : csv.DictReader = csv.DictReader(csv_file , delimiter=delimiter)
                 
-                fieldnames = reader.fieldnames
+                fieldnames : list = reader.fieldnames
                 
-                data : list[dict] = []
-               
-                
-                for row in reader : 
-                    data.append(row)
-                    
+                rows_data : list[dict] = []
+                               
+                for row in reader : rows_data.append(row)
                 
                 return {
                     "fieldnames" : fieldnames , 
-                    "rows" : data ,
-                    "row-count" : len(data)
+                    "rows" : rows_data ,
+                    "row-count" : len(rows_data)
                 }
             
         except FileNotFoundError : 
-            print("[CSVutils/CSVManager] file not found")
-            return {}
+            print(f"[csv-utils] : The file {file_path} was not found")
+            return {
+                "fieldnames" : [] ,
+                "rows" : [] , 
+                "row-count" : 0
+            }
         except Exception : 
-            print("[CSVutils/CSVManager] error while loading the file")
+            print(f"[csv-utils] : Error while loading the file {file_path}")
+            return {
+                "fieldnames" : [] ,
+                "rows" : [] , 
+                "row-count" : 0
+            }
 
 
     def appendRow(file_path : str , row  : dict , fieldnames : list[str] , delimiter : str=",") : 
         
         try : 
+            if fieldnames == []  : raise RuntimeError("The fieldnames are empty")
+            
+            if all( map( lambda value : len(value) == 0 , row.values() ) ) or row == {} : raise RuntimeError("You can't save an empty row")
+            
+            temp_csv_data : dict = CSVManager.loadFile(file_path)
+            temp_fieldnames = temp_csv_data["fieldnames"]
+
             with open(file_path , "a" , encoding="utf-8" , newline='') as csv_file : 
-                writer = csv.DictWriter(csv_file , delimiter=delimiter , fieldnames=fieldnames)
+                writer = csv.DictWriter(csv_file , delimiter=delimiter , fieldnames=temp_fieldnames)
                 writer.writerow(row)
 
         except Exception : 
-            print("[CsvUtils/CsvManager] error while adding a row to the file" , file_path)
+            print("[CsvUtils/CsvManager] error while adding a row to the file , row not saved" , file_path)
+
 
 if __name__ =="__main__" : 
-    #data = CSVManager.loadFile("example/ex2.csv")
+    
+    csv_data : dict = CSVManager.loadFile("example/empty.csv")
+    
+    for row in csv_data["rows"] : print(f"[csv-utils] csv row : {row}\n")
+
+    print(csv_data)
     pass 

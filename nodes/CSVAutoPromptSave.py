@@ -28,7 +28,8 @@ class CSVAutoPromptSave :
     
 
     def execute(self , file_path , positive_prompt , negative_prompt) : 
-        
+        if len(positive_prompt) == 0 : 
+            raise FileNotFoundError("the file" , file_path , "does not exists")
         if not save_to_csv(file_path , positive_prompt , negative_prompt) : 
             print("[CSVAutoPromptSaver] the prompt already exist , prompt not saved..")
         return {}
