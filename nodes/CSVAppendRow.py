@@ -48,6 +48,6 @@ class CSVAppendRow :
         CSVManager.appendRow(file_path , row , fieldnames)
 
         print("csv utils row saved with succes !  : " , row , "fieldnames:" , fieldnames)
-        return kwargs
+        return {}
         
 

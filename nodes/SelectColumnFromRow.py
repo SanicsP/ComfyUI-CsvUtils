@@ -6,7 +6,7 @@ class SelectColumnFromRow :
         return {
             "required" : {
                 "selected_row" : ("*" ,),
-                "column" : ("INT", {min:0}) , 
+                "column" : ("INT", {"min":0}) , 
             }
         }
     
@@ -21,10 +21,13 @@ class SelectColumnFromRow :
     OUTPUT_NODE = False
     
     DESCRIPTION = """
-        select a field value from a row
+        select a value from a row
     """
 
     def execute(self , selected_row  , column) : 
-        row_list : list = list(selected_row.values())
-        return (row_list[column],)
+        if selected_row is dict : 
+            row_list : list = list(selected_row.values())
+            return (row_list[column],)
+        else : 
+            raise TypeError("you must provide a row")
 
