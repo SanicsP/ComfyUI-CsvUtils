@@ -21,7 +21,7 @@ class SelectDataByField :
     OUTPUT_NODE = False
     
     DESCRIPTION = """
-        select a field value from a row
+        This node selects data from a row based on the specified header name
     """
 
     def execute(self , selected_row , fieldname) : 

@@ -26,7 +26,7 @@ class LoadCSVFile :
     OUTPUT_NODE = False
 
     DESCRIPTION = """
-        Loads all data from csv file into a list of rows, works with "select row from csv data" node
+        Loads all data from a csv file into a list of rows, works with "select row from csv data" node
     """
     
 

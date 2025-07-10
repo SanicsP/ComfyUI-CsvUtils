@@ -21,7 +21,7 @@ class SelectColumnFromRow :
     OUTPUT_NODE = False
     
     DESCRIPTION = """
-        select a value from a row
+        This node selects data on a row based on the number of the chosen column
     """
 
     def execute(self , selected_row  , column) : 

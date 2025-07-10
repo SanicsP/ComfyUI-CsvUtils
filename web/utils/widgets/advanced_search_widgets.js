@@ -87,6 +87,10 @@ const advanced_search_style= `
 
         table-layout : fixed;
 
+        width : 100%;
+
+        word-break : break-all;
+
     }
 
 
@@ -117,6 +121,9 @@ const advanced_search_style= `
         font-weight: normal;
     }
 
+    .csv-u-result-table td {
+        text-align : center;
+    }
 
 /*------------------------------------------------------------*/
 
