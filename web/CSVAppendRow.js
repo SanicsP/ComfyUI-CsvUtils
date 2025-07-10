@@ -10,7 +10,9 @@ app.registerExtension({
     } ,
 
     async beforeRegisterNodeDef(nodeType, nodeData, app) {
-
+        if(nodeType.comfyClass == "CSVAppendRow") {
+           
+        }
     } ,
 
     async nodeCreated(node) {

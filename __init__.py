@@ -20,6 +20,8 @@ from .nodes.LoadCSVFileAdvanced import LoadCSVFileAdvanced
 
 from .nodes.SearchRow import SearchRow
 
+from .nodes.SelectColumnFromRow import SelectColumnFromRow
+
 
 from .py.csv_utils import *
 
@@ -107,7 +109,8 @@ NODE_CLASS_MAPPINGS = {
     "SelectDataByField" : SelectDataByField ,
     "CSVAdvancedSearch" : CSVAdvancedSearch , 
     "LoadCSVFileAdvanced" : LoadCSVFileAdvanced , 
-    "SearchRow" : SearchRow
+    "SearchRow" : SearchRow , 
+    "SelectColumnFromRow" : SelectColumnFromRow
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
@@ -121,7 +124,8 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "SelectDataByField" : "Select Data From CSV Row" ,
     "CSVAdvancedSearch" : "Search From CSV File" , 
     "LoadCSVFileAdvanced" : "Load Row From File" , 
-    "SearchRow" : "Find Row By value"
+    "SearchRow" : "Find Row By value" , 
+    "SelectColumnFromRow" : "Select Column From Row"
 }
 __all__ = ["NODE_CLASS_MAPPINGS" , "NODE_DISPLAY_NAME_MAPPINGS" , "WEB_DIRECTORY"]
 

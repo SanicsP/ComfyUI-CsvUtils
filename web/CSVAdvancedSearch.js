@@ -12,21 +12,48 @@ app.registerExtension({
     } ,
 
     async beforeRegisterNodeDef(nodeType, nodeData, app) {
-        
+        if(nodeType.comfyClass == "CSVAdvancedSearch") {
+            
+            const onCreated = nodeType.prototype.onNodeCreated
+
+            nodeType.prototype.onNodeCreated = function(...args) {
+                const r = onCreated?.apply(this , args)
+                
+                const node = this
+
+                const searchComponent = SearchComponent.create_search_component()
+                
+                
+                const refreshWidget = node.addWidget("button" , "refresh" , 0)
+                
+                node.addDOMWidget("search-results" , 0 , searchComponent.root)
+
+                
+                const filePathWidget = node.widgets[0]
+                
+                filePathWidget.callback = (text)=> {
+                    SearchComponent.onInput(node , searchComponent)
+                }
+
+                searchComponent.search_bar.addEventListener("input" , ()=>{
+                    SearchComponent.onInput(node , searchComponent)
+                })
+
+                refreshWidget.callback = () => SearchComponent.onInput(node , searchComponent)
+
+                SearchComponent.onInput(node , searchComponent)
+
+                return r
+            }
+        }
     } ,
 
     async nodeCreated(node) {
         if(node.comfyClass == "CSVAdvancedSearch") {
 
-            const searchComponent = SearchComponent.create_search_component()
-            
-            node.addDOMWidget("search-results" , 0 , searchComponent.root)
-            
-            
 
-            searchComponent.search_bar.addEventListener("input" , ()=>{
-                SearchComponent.onInput(node , searchComponent)
-            })
+            
+            
         }
     }
 

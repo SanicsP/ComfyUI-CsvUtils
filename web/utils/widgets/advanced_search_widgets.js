@@ -12,17 +12,20 @@ const advanced_search_style= `
         
         --separator-color : hsl(140, 76.70%, 37.10%);
         
-        --row-color1 : hsl(0, 0.00%, 15.30%);
-        --row-color2 : hsl(140, 20.00%, 29.40%);
+        --row-color1 : hsl(0, 0.00%, 15.00%);
+        --row-color2 : hsl(0, 0.00%, 20.00%);
         
+        --hover-c1 : hsl(0, 0.00%, 90%);
+        --hover-bg-c1 : hsl(124, 0%, 5.00%);
+        
+        --header-color : hsl(140, 20.00%, 29.40%);
+
         --row-text-color1: hsl(0, 0.00%, 76.10%);
         --row-text-color2: hsl(0, 0.00%, 76.10%);
         
         --text-color1: hsl(0, 0.00%, 76.10%);
         --text-color2: hsl(0, 0.00%, 8.60%);
 
-        --hover-c1 : hsl(0, 0.00%, 78.80%);
-        --hover-bg-c1 : hsla(124, 11.90%, 23.10%, 0.32);
 
         --border-r1 : 4px;
         --border-r2 : 6px;
@@ -41,7 +44,7 @@ const advanced_search_style= `
         --text-size : 1.0em;
         --fs1 : 0.8em;
 
-        --ff1 : sans-serif;
+        --ff1 : "Trebuchet MS" ,sans-serif;
         
         font-family : var(--ff1);
         font-size : var(--fs1);
@@ -92,30 +95,34 @@ const advanced_search_style= `
         background-color : var(--row-color1);
     }
 
+    .csv-u-result-table tr:nth-child(2n+1) {
+        color : var(--row-text-color1);
+        background-color : var(--row-color2);
+    }
+
+    .csv-u-result-table  td:hover {
+        background-color : var(--hover-bg-c1);
+        color : var(--hover-c1);
+        transition : all ease-in-out 0.2s;
+    }
 
     .csv-u-result-table  td {
         padding : var(--padding2);
         boder-radius : var(--border-2);
     }
 
-    .csv-u-result-table  td:hover {
-        background-color : var(--hover-bg-c1);
-        color : var(--hover-c1);
-
-        transition : all ease-in-out 0.2s;
-    }
 
     .csv-u-result-table-header > th {
-        background-color : var(--row-color2);
+        background-color : var(--header-color);
+        font-weight: normal;
     }
 
-    .csv-u-result-table-header  tr {
-        background-color : red;
-        
-    }
 
+/*------------------------------------------------------------*/
 
 `
+
+
 
 export function apply_advanced_search_style() {
     const css = document.createElement("style")
@@ -147,16 +154,12 @@ export async function onInput(node , searchComponent) {
     const fileInput = node.widgets[0].value
 
     const searchContent = searchComponent.search_bar.value
-
+    
+    searchComponent.search_result.innerHTML = ``
+   
     const csvData = await advancedUtils.requestFile(fileInput)
     
-    console.log("search content : " , searchContent )
-    
-    
     const filteredResults = await advancedUtils.filterResults(csvData , searchContent)
-    
-    // console.log("results : " , filteredResults)
-
     show_search_results(csvData , filteredResults , searchComponent)
 
 }
@@ -178,7 +181,8 @@ export function show_search_results(csvData , searchResults , searchComponent) {
         resultTable.appendChild(tableHeader)
         tableHeader.className = "csv-u-result-table-header"
 
-    for(let field of csvData.fieldnames) {
+    
+    for(let field of ["id"].concat(csvData.fieldnames)) {
         const fieldHead = document.createElement("th")
             fieldHead.innerText = field
             tableHeader.appendChild(fieldHead)
@@ -187,7 +191,8 @@ export function show_search_results(csvData , searchResults , searchComponent) {
 
     for(let row of searchResults) {
         const rowElement = document.createElement("tr")
-        for(let field of csvData.fieldnames) {
+
+        for(let field of ["id"].concat(csvData.fieldnames)) {
             
             const entryTd =  document.createElement("td")
                 entryTd.innerText = row[field]
