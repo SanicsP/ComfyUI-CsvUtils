@@ -50,11 +50,11 @@ In case you are creating a new csv file you will need to perform these actions b
 
 Create a new csv file with the editor of your choice that supports the format
 
-![alt text](assets\images\advanced\image.png)
+![alt text](assets\images\advanced\1.png)
 
 Open the file in your editor
 
-![alt text](image.png)
+![alt text](assets\images\advanced\2.png)
 
 
 You should have a blank board
