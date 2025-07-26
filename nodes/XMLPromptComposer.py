@@ -6,11 +6,12 @@ class XMLPromptComposer :
 
         return {
             "required" : {
-                "xml_prompt" : ("STRING", {"default" : "" , "multiline" : True}) , 
+                "xml_prompt" : ("STRING", {"default" : "" , "multiline" : True}) ,
+                "delimiter" : ("STRING", {"default" : ""})
             }
         }
 
-    def xml2prompt(xml_string : str) :
+    def xml2prompt(xml_string : str , delimiter=",") :
         if xml_string.strip() == "" :
             raise RuntimeError("Empty prompt") 
             
@@ -20,7 +21,7 @@ class XMLPromptComposer :
 
         for child in root :
             if child.text :  
-                final_prompt += child.text + " , "
+                final_prompt += child.text + delimiter
 
     
         final_prompt =" ".join(final_prompt.replace("\n" , "").replace("\t" , "").strip().split())
@@ -54,8 +55,8 @@ class XMLPromptComposer :
     """
     
 
-    def execute(self , xml_prompt) : 
-        return (XMLPromptComposer.xml2prompt(xml_prompt), XMLPromptComposer.xml2dict(xml_prompt))
+    def execute(self , xml_prompt , delimiter) : 
+        return (XMLPromptComposer.xml2prompt(xml_prompt , delimiter), XMLPromptComposer.xml2dict(xml_prompt))
     
     
 
