@@ -26,8 +26,10 @@ app.registerExtension({
                 
                 const refreshWidget = node.addWidget("button" , "refresh" , 0)
                 
-                node.addDOMWidget("search-results" , 0 , searchComponent.root)
-
+                const resWidget = node.addDOMWidget("search-results" , 0 , searchComponent.root)
+                
+                resWidget.hideOnZoom = true
+                
                 
                 const filePathWidget = node.widgets[0]
                 

@@ -25,7 +25,6 @@ class SelectColumnFromRow :
     """
 
     def execute(self , selected_row  , column) : 
-        print(selected_row)
         if type(selected_row) == dict : 
             row_list : list = list(selected_row.values())
             return (row_list[column],)

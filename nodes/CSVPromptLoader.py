@@ -15,7 +15,9 @@ class CSVPromptLoader :
     CATEGORY = "csv_tools"
     
     FUNCTION = "execute"
+    
     RETURN_TYPES = ("STRING" , "STRING")
+    
     RETURN_NAMES = ("positive prompt" , "negative prompt")
     
     OUTPUT_NODE = False
@@ -32,8 +34,6 @@ class CSVPromptLoader :
 
         if prompt_row["positive"] == "" : 
             raise Exception("The positive prompt is empty")
-        
-        print("[csv utils] row selected : " , prompt_row)
         
         return (prompt_row["positive"] , prompt_row["negative"])
 

@@ -22,6 +22,8 @@ from .nodes.SearchRow import SearchRow
 
 from .nodes.SelectColumnFromRow import SelectColumnFromRow
 
+from .nodes.XMLPromptComposer import XMLPromptComposer
+
 from .py.routes import define_routes
 
   
@@ -44,6 +46,7 @@ NODE_CLASS_MAPPINGS = {
     "LoadCSVFileAdvanced" : LoadCSVFileAdvanced , 
     "SearchRow" : SearchRow , 
     "SelectColumnFromRow" : SelectColumnFromRow,
+    "XMLPromptComposer" : XMLPromptComposer,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
@@ -58,7 +61,8 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "CSVAdvancedSearch" : "Search From CSV File" , 
     "LoadCSVFileAdvanced" : "Load Row From File" , 
     "SearchRow" : "Find Row By value" , 
-    "SelectColumnFromRow" : "Select Column From Row"
+    "SelectColumnFromRow" : "Select Column From Row",
+    "XMLPromptComposer" : "XMLPromptComposer"
 }
 __all__ = ["NODE_CLASS_MAPPINGS" , "NODE_DISPLAY_NAME_MAPPINGS" , "WEB_DIRECTORY"]
 
