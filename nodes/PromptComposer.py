@@ -10,7 +10,7 @@ class PromptComposer :
         }
 
     
-    CATEGORY = "csv_tools/xml"
+    CATEGORY = "csv_tools/prompting"
     
     FUNCTION = "execute"
     
@@ -21,7 +21,7 @@ class PromptComposer :
     OUTPUT_NODE = True
 
     DESCRIPTION = """
-        Transform XML data to prompts
+        Node for merge prompt sequence toghether 
     """
     
 
