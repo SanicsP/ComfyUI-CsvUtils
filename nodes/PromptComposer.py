@@ -5,8 +5,8 @@ class PromptComposer :
 
         return {
             "required" : {
-                "delimiter" : ("STRING",{"default" : ","})
-            }
+                "delimiter" : ("STRING",{"default" : ","}) , 
+            } , 
         }
 
     
@@ -27,6 +27,7 @@ class PromptComposer :
 
     def execute(self , delimiter ,  **kwargs) : 
         out = delimiter.join(list(kwargs.values()))
+        print(kwargs.items())
         return {
             "ui" : {
                 "text" : (out,)

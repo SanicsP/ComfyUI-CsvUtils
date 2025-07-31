@@ -7,7 +7,7 @@ class SelectRow :
         return {
             "required" : {
                 "csv_data" : ("*" ,),
-                "row" : ("INT",{"min" : 0}) , 
+                "row" : ("INT",{"min" : 0 , "max" : 9223372036854776000}) , 
             }
         }
     

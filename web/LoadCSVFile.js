@@ -4,14 +4,14 @@ import { api } from "../../scripts/api.js";
 
 
 app.registerExtension({
-    name: "csv_utils.prompt_composer", 
+    name: "csv_utils.file_loader", 
 
     async setup() {
        
     } ,
 
     async beforeRegisterNodeDef(nodeType, nodeData, app) {
-        if(nodeType.comfyClass == "PromptComposer") {
+        if(nodeType.comfyClass == "LoadCSVFile") {
            
             const onNodeCreated = nodeType.prototype.onNodeCreated
 
@@ -20,12 +20,6 @@ app.registerExtension({
 
                 const node = this
 
-                
-                const addButton = node.addWidget("button" , "add" , 0 , null)
-
-                const removeButton = node.addWidget("button" , "remove" , 0 , null)
-
-                
                 const root = document.createElement("div")
                 root.style = `
                     display : flex;
@@ -40,25 +34,18 @@ app.registerExtension({
                     height:100%;  
                     width : 100%;
                     display:flex; 
-                    background-color : hsl(238, 0%, 14%); 
+                    background-color : hsla(0, 0%, 24%, 1.00); 
                     color : hsla(0, 0%, 87%, 1.00);
                     overflow-y :auto;
                     padding : 2px;
                     font-family : "Trebuchet MS" ,sans-serif;
-                    font-size : 0.8em;
+                    font-size : 0.7em;
                 `
 
                 root.appendChild(p)
 
                 this.addDOMWidget("result" , "STRING" , root)
 
-                addButton.callback = function() {
-                    node.addInput(`seq${node.inputs.length}` , "STRING")
-                }
-
-                removeButton.callback = function() {
-                    node.removeInput(node.inputs.length-1)
-                }
                 
                 
             }
@@ -70,29 +57,24 @@ app.registerExtension({
                 
                 const r = onExecuted?.apply(this , arguments)
                 
-                const resultText = msg.text[0]
-                console.log("node executed : " , resultText)
+                
+                const fieldnames = msg.text[0]
+                const rowCount = msg.text[1]
+
+                let resultMsg = `
+                \tfields : ${fieldnames} \n
+                \tnumber of rows : ${rowCount}
+                `
+
+
                 
                 const resultP = this.widgets[this.widgets.length-1].element.firstChild
 
-                resultP.innerText = resultText
+                resultP.innerText = resultMsg
                 
                 return r
             }
 
-            const original_getExtraMenuOptions = nodeType.prototype.getExtraMenuOptions;
-            
-            nodeType.prototype.getExtraMenuOptions = function(_, options) {
-            
-                original_getExtraMenuOptions?.apply(this, arguments);
-            
-                options.push({
-                    content: "delete all sequences",
-                    callback: async () => {
-                        this.inputs = []
-                    }
-                })
-            }
         
         }
     } ,

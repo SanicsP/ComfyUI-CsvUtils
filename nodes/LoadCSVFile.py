@@ -23,7 +23,7 @@ class LoadCSVFile :
     
     RETURN_NAMES = ("csv_data" ,)
     
-    OUTPUT_NODE = False
+    OUTPUT_NODE = True
 
     DESCRIPTION = """
         Loads all data from a csv file into a list of rows, works with "select row from csv data" node
@@ -33,6 +33,12 @@ class LoadCSVFile :
     def execute(self , file_path) : 
         csv_data = CSVManager.loadFile(file_path)
         if csv_data["rows"] == [] : raise RuntimeError("The csv array is empty")
-        return (csv_data,)
+        #return (csv_data,)
+        return {
+            "ui" : {
+                "text" : (csv_data["fieldnames"],csv_data["row-count"]) 
+            } ,
+            "result" : (csv_data,)
+            }
         
 
