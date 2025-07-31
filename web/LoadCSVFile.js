@@ -2,6 +2,11 @@ import { app } from "../../scripts/app.js";
 import { api } from "../../scripts/api.js";
 
 
+api.addEventListener("executed" , async (node , id , out) => {
+    console.log("output " , node.detail.output)
+})
+
+
 
 app.registerExtension({
     name: "csv_utils.file_loader", 
@@ -58,7 +63,7 @@ app.registerExtension({
                 const r = onExecuted?.apply(this , arguments)
                 
                 
-                const fieldnames = msg.text[0]
+                const fieldnames = msg.text[0].join("|")
                 const rowCount = msg.text[1]
 
                 let resultMsg = `
