@@ -40,6 +40,8 @@ app.registerExtension({
 
                    node.inputs = []
                    
+                   replacements = [... new Set(replacements)]
+                   
                    replacements.forEach((key)=>{
                     node.addInput(key , "STRING")
                    })
