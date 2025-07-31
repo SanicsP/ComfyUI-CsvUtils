@@ -17,11 +17,6 @@ app.registerExtension({
         }
     } ,
 
-    async nodeCreated(node) {
-        if(node.comfyClass == "SelectRow") {
-           
-           console.log(node)
-        }
-    }
+
 
 })

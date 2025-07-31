@@ -26,7 +26,7 @@ from .nodes.XMLPromptComposer import XMLPromptComposer
 
 from .nodes.PromptComposer import PromptComposer
 
-
+from .nodes.PromptSchema import PromptSchema
 
 from .py.routes import define_routes
 
@@ -51,7 +51,8 @@ NODE_CLASS_MAPPINGS = {
     "SearchRow" : SearchRow , 
     "SelectColumnFromRow" : SelectColumnFromRow,
     "XMLPromptComposer" : XMLPromptComposer,
-    "PromptComposer" : PromptComposer
+    "PromptComposer" : PromptComposer , 
+    "PromptSchema" : PromptSchema
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
@@ -68,7 +69,8 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "SearchRow" : "Find Row By value" , 
     "SelectColumnFromRow" : "Select Column From Row",
     "XMLPromptComposer" : "XMLPromptComposer" , 
-    "PromptComposer" : "PromptComposer"
+    "PromptComposer" : "PromptComposer" , 
+    "PromptSchema" : "PromptSchema"
 }
 __all__ = ["NODE_CLASS_MAPPINGS" , "NODE_DISPLAY_NAME_MAPPINGS" , "WEB_DIRECTORY"]
 
