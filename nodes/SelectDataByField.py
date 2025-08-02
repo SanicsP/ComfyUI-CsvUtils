@@ -6,7 +6,11 @@ class SelectDataByField :
         return {
             "required" : {
                 "selected_row" : ("*" ,),
-                "fieldname" : ("STRING",) , 
+                "fieldname" : ([],{"default" : ""}) , 
+            } ,
+
+            "hidden" : {
+                "field_list" : "STRING" ,
             }
         }
     
@@ -26,6 +30,7 @@ class SelectDataByField :
 
     def execute(self , selected_row , fieldname) : 
         try : 
+            print("fieldname : " , fieldname)
             return (selected_row[fieldname],)
         except KeyError :
             raise KeyError("the field" , fieldname , "doesn't exists. the actual fields : " , selected_row.keys())
