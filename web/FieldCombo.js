@@ -44,36 +44,79 @@ async function refreshList(combo) {
     }  
 }
 
+function make_submenu(value, options, e, menu, node) {
+    
+    const submenu = new LiteGraph.ContextMenu(
+        ["refresh combos"],
+        { 
+            event: e, 
+            callback: function (v) { 
+                if (v == "refresh combos") {
+                    app.graph._nodes.forEach((node)=> {
+                        if(node.comfyClass == NODE_CLASS) {
+                            node.refreshNode()
+                        }
+                    })
+                }
+            }, 
+            parentMenu: menu, 
+            node:node
+        }
+    )
+    
+}
+
+const NODE_CLASS = "SelectDataByField"
 app.registerExtension({
     name: "csv_utils.field_combo", 
 
     async setup() {
-       
+
+       const original_getCanvasMenuOptions = LGraphCanvas.prototype.getCanvasMenuOptions
+        LGraphCanvas.prototype.getCanvasMenuOptions = function() {
+            
+            const options = original_getCanvasMenuOptions.apply(this, arguments)
+
+            options.push(null)
+            
+            options.push({
+                content: "csv-utils",
+                has_submenu : true , 
+                callback: make_submenu
+            })
+
+            return options
+        }
     } ,
 
     async beforeRegisterNodeDef(nodeType, nodeData, app) {
-        if(nodeType.comfyClass == "SelectDataByField") {
+        if(nodeType.comfyClass == NODE_CLASS) {
             
             const onNodeCreated = nodeType.prototype.onNodeCreated
 
             nodeType.prototype.onNodeCreated = function(...args) { 
-
+                
+                this.refreshNode = () => refreshList.call(this , this.widgets.find(w => w.name == 'fieldnameCombo') )
+                
                 const r =  onNodeCreated?.apply(this , arguments)
 
                 const fieldnameWidget = this.widgets.find(w => w.name == 'fieldname')
 
                 fieldnameWidget.hidden = true
 
-                const fieldNamesCombo = this.addWidget("combo" , "fieldname" , "" , (option)=> {
+                const fieldNamesCombo = this.addWidget("combo" , "fieldnameCombo" , "" , (option)=> {
                     fieldnameWidget.value = option
                 } , {values : []} )
 
                 fieldNamesCombo.options.values = []
                 
-                this.addWidget("button" , "refresh combo list" , 0 ,  ()=> refreshList.call(this , fieldNamesCombo) )
+                this.addWidget("button" , "refresh combo list" , 0 ,  ()=> this.refreshNode() )
 
                return r 
             }
+
+            
+
         }
 
         
@@ -82,3 +125,7 @@ app.registerExtension({
 
 
 })
+
+
+
+                        
