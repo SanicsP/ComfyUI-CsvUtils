@@ -9,7 +9,7 @@ function getLinkId() {
     return link_id
 }
 
-async function refreshList(combo) {
+async function refreshList(combo , fieldname) {
     
     let currentNode = this
 
@@ -33,6 +33,8 @@ async function refreshList(combo) {
                 const csvData = await requestFile(filePath)
 
                 combo.options.values = csvData.fieldnames
+                combo.value = combo.options.values[0]
+                fieldname.value = combo.value
                 
             }
             catch(err) {
@@ -96,7 +98,10 @@ app.registerExtension({
 
             nodeType.prototype.onNodeCreated = function(...args) { 
                 
-                this.refreshNode = () => refreshList.call(this , this.widgets.find(w => w.name == 'fieldnameCombo') )
+                this.refreshNode = () => refreshList.call(this ,
+                    this.widgets.find(w => w.name == 'fieldnameCombo')  ,  
+                    this.widgets.find(w => w.name == 'fieldname')
+                )
                 
                 const r =  onNodeCreated?.apply(this , arguments)
 
@@ -108,7 +113,6 @@ app.registerExtension({
                     fieldnameWidget.value = option
                 } , {values : []} )
 
-                fieldNamesCombo.options.values = []
                 
                 this.addWidget("button" , "refresh combo list" , 0 ,  ()=> this.refreshNode() )
 
