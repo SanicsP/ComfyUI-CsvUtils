@@ -2,11 +2,35 @@ import { app } from "../../scripts/app.js";
 import { api } from "../../scripts/api.js";
 
 
-api.addEventListener("executed" , async (node , id , out) => {
-    console.log("output " , node.detail.output)
-})
 
 
+function make_result_widget() {
+    const root = document.createElement("div")
+    root.style = `
+        display : flex;
+        align-items : center;
+        
+    `
+
+
+    const p = document.createElement("p")
+    
+    p.style = `
+        height:100%;  
+        width : 100%;
+        display:flex; 
+        background-color : hsla(0, 0%, 24%, 1.00); 
+        color : hsla(0, 0%, 87%, 1.00);
+        overflow-y :auto;
+        padding : 2px;
+        font-family : "Trebuchet MS" ,sans-serif;
+        font-size : 0.7em;
+    `
+
+    root.appendChild(p)
+
+    return root
+}
 
 app.registerExtension({
     name: "csv_utils.file_loader", 
@@ -25,30 +49,8 @@ app.registerExtension({
 
                 const node = this
 
-                const root = document.createElement("div")
-                root.style = `
-                    display : flex;
-                    align-items : center;
-                    
-                `
-
-
-                const p = document.createElement("p")
+                const root = make_result_widget()
                 
-                p.style = `
-                    height:100%;  
-                    width : 100%;
-                    display:flex; 
-                    background-color : hsla(0, 0%, 24%, 1.00); 
-                    color : hsla(0, 0%, 87%, 1.00);
-                    overflow-y :auto;
-                    padding : 2px;
-                    font-family : "Trebuchet MS" ,sans-serif;
-                    font-size : 0.7em;
-                `
-
-                root.appendChild(p)
-
                 this.addDOMWidget("result" , "STRING" , root)
 
                 
@@ -62,8 +64,8 @@ app.registerExtension({
                 
                 const r = onExecuted?.apply(this , arguments)
                 
-                
                 const fieldnames = msg.text[0].join("|")
+
                 const rowCount = msg.text[1]
 
                 let resultMsg = `
@@ -71,8 +73,6 @@ app.registerExtension({
                 \tnumber of rows : ${rowCount}
                 `
 
-
-                
                 const resultP = this.widgets[this.widgets.length-1].element.firstChild
 
                 resultP.innerText = resultMsg

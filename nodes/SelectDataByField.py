@@ -6,11 +6,10 @@ class SelectDataByField :
         return {
             "required" : {
                 "selected_row" : ("*" ,),
-                "fieldname" : ([],{"default" : ""}) , 
             } ,
 
-            "hidden" : {
-                "field_list" : "STRING" ,
+            "optional" : {
+                "fieldname" : ("STRING" , {"default" : ""}) ,
             }
         }
     

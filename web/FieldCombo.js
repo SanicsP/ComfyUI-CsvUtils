@@ -8,6 +8,42 @@ function getLinkId() {
     const link_id = input.link
     return link_id
 }
+
+async function refreshList(combo) {
+    
+    let currentNode = this
+
+    let link_id = null
+
+    while(link_id = getLinkId.call(currentNode))
+    {
+       
+        const LLinkObj = app.graph.links[link_id]
+        
+        const originId = LLinkObj.origin_id
+
+        const originNode = app.graph._nodes_by_id[originId]
+
+        
+        if(originNode.comfyClass == "LoadCSVFile") {
+            try {
+                
+                const filePath = originNode.widgets[0].value
+                
+                const csvData = await requestFile(filePath)
+
+                combo.options.values = csvData.fieldnames
+                
+            }
+            catch(err) {
+                
+            }   
+        }
+        
+        currentNode = originNode
+    }  
+}
+
 app.registerExtension({
     name: "csv_utils.field_combo", 
 
@@ -17,71 +53,25 @@ app.registerExtension({
 
     async beforeRegisterNodeDef(nodeType, nodeData, app) {
         if(nodeType.comfyClass == "SelectDataByField") {
-            //console.log(app.graph)
-
-           
-
+            
             const onNodeCreated = nodeType.prototype.onNodeCreated
 
             nodeType.prototype.onNodeCreated = function(...args) { 
 
-               const r =  onNodeCreated?.apply(this , arguments)
-                console.log(this)
-                console.log(nodeData)
-                const widget = this.widgets.find(w => w.name == 'field_list')
+                const r =  onNodeCreated?.apply(this , arguments)
 
-                console.log(widget)
-                this.addWidget("button" , "refresh combo list" , 0 , async ()=> {
-                    
-                    let currentNode = this
-                    let link_id = null
+                const fieldnameWidget = this.widgets.find(w => w.name == 'fieldname')
 
-                    while(link_id = getLinkId.call(currentNode))
-                    {
-                        //console.log("link finded")
+                fieldnameWidget.hidden = true
 
-                        const LLinkObj = app.graph.links[link_id]
-                        
-                        const originId = LLinkObj.origin_id
+                const fieldNamesCombo = this.addWidget("combo" , "fieldname" , "" , (option)=> {
+                    fieldnameWidget.value = option
+                } , {values : []} )
 
-                        const originNode = app.graph._nodes_by_id[originId]
+                fieldNamesCombo.options.values = []
+                
+                this.addWidget("button" , "refresh combo list" , 0 ,  ()=> refreshList.call(this , fieldNamesCombo) )
 
-                        //console.log("origin node class : " , originNode.comfyClass)
-
-                        if(originNode.comfyClass == "LoadCSVFile") {
-                            try {
-                               
-                                //console.log("matching ! loadCSVFile node finded")
-                               
-                                const filePath = originNode.widgets[0].value
-                               
-                                //console.log("attempt to load csv file : " , filePath)
-
-                                const csvData = await requestFile(filePath)
-
-                                //console.log("file loaded : " , csvData)
-                                
-                                Object.defineProperty(this.widgets[0].options , "values" , {
-                                    get() {
-                                        return csvData.fieldnames
-                                    }
-                                })
-
-                                this.widgets[0].options.values = csvData.fieldnames
-                                
-                            }
-                            catch(err) {
-                                
-                            }
-                            
-                        }
-                        else {
-                            console.log("node no matching")
-                        }
-                        
-                        currentNode = originNode
-                    }  
-                })
                return r 
             }
         }
