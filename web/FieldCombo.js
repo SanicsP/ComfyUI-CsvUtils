@@ -1,13 +1,9 @@
 import { app } from "../../scripts/app.js";
 import { api } from "../../scripts/api.js";
 import { requestFile } from "./utils/advanced_utils.js";
+import {findNodeAncestor} from "./utils/comfy_graph.js"
 
 
-function getLinkId() {
-    const input = this.inputs[0]
-    const link_id = input.link
-    return link_id
-}
 
 function refreshAllCombos()
 {
@@ -20,39 +16,21 @@ function refreshAllCombos()
 
 async function refreshList(combo , fieldname) {
     
-    let currentNode = this
-
-    let link_id = null
-
-    while(link_id = getLinkId.call(currentNode))
+    const originNode = findNodeAncestor(this , "LoadCSVFile")
+    
+    if(originNode)
     {
-       
-        const LLinkObj = app.graph.links[link_id]
-        
-        const originId = LLinkObj.origin_id
+        const filePath = originNode.widgets[0].value
+                
+        const csvData = await requestFile(filePath)
 
-        const originNode = app.graph._nodes_by_id[originId]
-
-        
-        if(originNode.comfyClass == "LoadCSVFile") {
-            try {
-                
-                const filePath = originNode.widgets[0].value
-                
-                const csvData = await requestFile(filePath)
-
-                combo.options.values = csvData.fieldnames
-                combo.value = combo.options.values[0]
-                fieldname.value = combo.value
-                
-            }
-            catch(err) {
-                
-            }   
-        }
-        
-        currentNode = originNode
-    }  
+        combo.options.values = csvData.fieldnames
+    
+        combo.value = combo.options.values[0]
+    
+        fieldname.value = combo.value
+    }
+    
 }
 
 function make_submenu(value, options, e, menu, node) {
@@ -96,8 +74,8 @@ app.registerExtension({
 
     async setup() {
 
-       const original_getCanvasMenuOptions = LGraphCanvas.prototype.getCanvasMenuOptions
-        LGraphCanvas.prototype.getCanvasMenuOptions = function() {
+       const original_getCanvasMenuOptions = nodeTypeCanvas.prototype.getCanvasMenuOptions
+        nodeTypeCanvas.prototype.getCanvasMenuOptions = function() {
             
             const options = original_getCanvasMenuOptions.apply(this, arguments)
 
@@ -111,13 +89,15 @@ app.registerExtension({
 
             return options
         }
+
+        
     } ,
 
     async beforeRegisterNodeDef(nodeType, nodeData, app) {
         if(nodeType.comfyClass == NODE_CLASS) {
             
             const onNodeCreated = nodeType.prototype.onNodeCreated
-
+            const node = this 
             nodeType.prototype.onNodeCreated = function(...args) { 
                 
                 this.refreshNode = () => refreshList.call(this ,
@@ -153,8 +133,6 @@ app.registerExtension({
 
         
     } ,
-
-
 
 })
 
