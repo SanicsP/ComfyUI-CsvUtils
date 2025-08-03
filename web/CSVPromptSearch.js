@@ -131,7 +131,7 @@ function createResultWidget() {
 
 
 app.registerExtension({ 
-	name: "CSV-UTILS-SEARCH",
+	name: "csv_utils.PromptSearch",
 	
 	async init() {
 		let style = document.createElement("style") 

@@ -23,7 +23,6 @@ app.registerExtension({
 
                 const searchComponent = SearchComponent.create_search_component()
                 
-                
                 const refreshWidget = node.addWidget("button" , "refresh" , 0)
                 
                 const resWidget = node.addDOMWidget("search-results" , 0 , searchComponent.root)

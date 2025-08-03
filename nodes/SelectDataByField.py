@@ -5,7 +5,7 @@ class SelectDataByField :
 
         return {
             "required" : {
-                "selected_row" : ("*" ,),
+                "selected_row" : ("CSVROW" ,),
             } ,
 
             "optional" : {
@@ -24,7 +24,7 @@ class SelectDataByField :
     OUTPUT_NODE = False
     
     DESCRIPTION = """
-        This node selects data from a row based on the specified header name
+        This node selects data from a row based on the specified field name. Press refresh button to see the fields avaible or press ctrl+p instead
     """
 
     def execute(self , selected_row , fieldname) : 

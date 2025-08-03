@@ -4,7 +4,7 @@ import { api } from "../../scripts/api.js";
 
 
 app.registerExtension({
-    name: "csv_utils.prompt_composer", 
+    name: "csv_utils.PromptComposer", 
 
     async setup() {
        

@@ -2,6 +2,20 @@ import { app } from "../../scripts/app.js";
 import { api } from "../../../scripts/api.js";
 import { requestFile } from "./utils/advanced_utils.js";
 
+
+async function updateInputs(node , fileWidget) {
+
+    const csvData = await requestFile(fileWidget.value)
+                
+    node.inputs = []
+
+    for(let fieldname of csvData.fieldnames) {
+        
+        node.addInput(fieldname , "STRING")
+    }
+
+}
+
 app.registerExtension({
     name: "csv_utils.CSVAppendRow", 
 
@@ -18,23 +32,12 @@ app.registerExtension({
     async nodeCreated(node) {
         if(node.comfyClass == "CSVAppendRow") {
 
-            const file_widget = node.widgets[0]
-            node.addWidget("button" , "refresh" , 0 , async ()=> {
-                let csv_data = await requestFile(file_widget.value)
-                console.log("[csv utils] : fieldnames " , csv_data.fieldnames)
-                
-                console.log(node.inputs)
-                
-                node.inputs = []
+            const fileWidget = node.widgets.find(w=> w.name == "file_path")
 
-                console.log(node.inputs)
+            node.addWidget("button" , "refresh" , 0 ,  ()=> updateInputs(node , fileWidget))
 
+            fileWidget.callback = ()=>updateInputs(node , fileWidget)
 
-                for(let fieldname of csv_data.fieldnames) {
-                    
-                    node.addInput(fieldname , "string")
-                }
-            })
         }
     }
 

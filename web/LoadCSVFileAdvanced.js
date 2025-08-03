@@ -43,11 +43,15 @@ app.registerExtension({
         if(node.comfyClass == "LoadCSVFileAdvanced") {
             
             node.outputs = []
-            refresh_outputs(node)
             
+            refresh_outputs(node)
+
             node.addWidget("button" , "refresh" , 0 , ()=> {
                 refresh_outputs(node)
             })
+
+            const fileWidget = node.widgets.find(v => v.name == "file_path")
+            fileWidget.callback = () => refresh_outputs(node)
            
         }
     }

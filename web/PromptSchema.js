@@ -4,7 +4,7 @@ import { api } from "../../scripts/api.js";
 
 
 app.registerExtension({
-    name: "csv_utils.prompt_schema", 
+    name: "csv_utils.PromptSchema", 
 
     async setup() {
        

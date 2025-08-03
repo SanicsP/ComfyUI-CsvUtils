@@ -84,7 +84,7 @@ async function fetchPrompt(file_path , positive_prompt , negative_prompt) {
 
 
 app.registerExtension({ 
-	name: "CSVPromptSaver",
+	name: "csv_utils.CSVPromptSaver",
 	
 	async beforeRegisterNodeDef(nodeType, nodeData, app) {
 		

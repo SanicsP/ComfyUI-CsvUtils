@@ -5,7 +5,7 @@ import { get_file_content } from "./utils/prompt_loader_utils.js";
 
 
 app.registerExtension({
-    name: "CSVPromptLoader",
+    name: "csv_utils.CSVPromptLoader",
     async setup() { 
 		console.log("[CSV tools] prompt loader setup complete")
 	},

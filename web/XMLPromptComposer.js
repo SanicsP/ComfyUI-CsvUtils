@@ -6,7 +6,7 @@ import * as xmlWidget from "./utils/widgets/xml_widget.js"
 xmlWidget.applyStyle()
 
 app.registerExtension({
-    name: "csv_utils.xml_composer", 
+    name: "csv_utils.XMLPromptComposer", 
 
     async setup() {
        
@@ -30,8 +30,7 @@ app.registerExtension({
 
     async nodeCreated(node) {
         if(node.comfyClass == "XMLPromptComposer") {
-           
-           
+            
         }
     }
 

@@ -33,7 +33,7 @@ function make_result_widget() {
 }
 
 app.registerExtension({
-    name: "csv_utils.file_loader", 
+    name: "csv_utils.LoadCSVFile", 
 
     async setup() {
        
@@ -45,16 +45,15 @@ app.registerExtension({
             const onNodeCreated = nodeType.prototype.onNodeCreated
 
             nodeType.prototype.onNodeCreated = function(...args) {
-                const r = onNodeCreated?.apply(this , args)
 
-                const node = this
+                const r = onNodeCreated?.apply(this , args)
 
                 const root = make_result_widget()
                 
                 this.addDOMWidget("result" , "STRING" , root)
 
-                
-                
+                return r
+
             }
 
             const onExecuted = nodeType.prototype.onExecuted 
@@ -73,9 +72,9 @@ app.registerExtension({
                 \tnumber of rows : ${rowCount}
                 `
 
-                const resultP = this.widgets[this.widgets.length-1].element.firstChild
+                const resultPElement = this.widgets.find((w)=>w.name == "result").element.firstChild
 
-                resultP.innerText = resultMsg
+                resultPElement.innerText = resultMsg
                 
                 return r
             }
@@ -86,7 +85,6 @@ app.registerExtension({
 
     async nodeCreated(node) {
         if(node.comfyClass == "PromptComposer") {
-           
            
         }
     }

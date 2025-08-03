@@ -5,7 +5,7 @@ class SelectColumnFromRow :
 
         return {
             "required" : {
-                "selected_row" : ("*" ,),
+                "selected_row" : ("CSVROW" ,),
                 "column" : ("INT", {"min":0}) , 
             }
         }

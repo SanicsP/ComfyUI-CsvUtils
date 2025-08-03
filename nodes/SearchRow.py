@@ -6,7 +6,7 @@ class SearchRow :
 
         return {
             "required" : {
-                "csv_data" : ("*",),
+                "csv_data" : ("CSVDATA",),
                 "fieldname" : ("STRING", {"default" : ""}) ,
                 "value" : ("STRING",{"default" : ""}) 
             }
@@ -16,7 +16,7 @@ class SearchRow :
     
     FUNCTION = "execute"
     
-    RETURN_TYPES = ("*",)
+    RETURN_TYPES = ("CSVROW",)
     
     RETURN_NAMES = ("selected_row",)
     

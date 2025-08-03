@@ -14,7 +14,7 @@ class LoadCSVFile :
     
     FUNCTION = "execute"
     
-    RETURN_TYPES = ("*" ,)
+    RETURN_TYPES = ("CSVDATA" ,)
     
     RETURN_NAMES = ("csv_data" ,)
     

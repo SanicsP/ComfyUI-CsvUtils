@@ -9,6 +9,15 @@ function getLinkId() {
     return link_id
 }
 
+function refreshAllCombos()
+{
+    app.graph._nodes.forEach((node)=> {
+        if(node.comfyClass == NODE_CLASS) {
+                node.refreshNode()
+            }
+    })
+}
+
 async function refreshList(combo , fieldname) {
     
     let currentNode = this
@@ -54,11 +63,7 @@ function make_submenu(value, options, e, menu, node) {
             event: e, 
             callback: function (v) { 
                 if (v == "refresh combos") {
-                    app.graph._nodes.forEach((node)=> {
-                        if(node.comfyClass == NODE_CLASS) {
-                            node.refreshNode()
-                        }
-                    })
+                    refreshAllCombos()
                 }
             }, 
             parentMenu: menu, 
@@ -70,7 +75,24 @@ function make_submenu(value, options, e, menu, node) {
 
 const NODE_CLASS = "SelectDataByField"
 app.registerExtension({
-    name: "csv_utils.field_combo", 
+    name: "csv_utils."+ NODE_CLASS, 
+
+    commands : [
+        {
+            id : "csv_utils.refreshCombos" , 
+            label : "Refresh field names combos" , 
+            function : ()=> {
+                refreshAllCombos()
+            }
+        }
+    ] ,
+
+    keybindings : [ 
+        {
+            combo : {key : "p" , ctrl:true} , 
+            commandId: "csv_utils.refreshCombos"
+        }
+    ],
 
     async setup() {
 
@@ -116,9 +138,15 @@ app.registerExtension({
                 
                 this.addWidget("button" , "refresh combo list" , 0 ,  ()=> this.refreshNode() )
 
-               return r 
+                return r 
             }
 
+            const onConnectionsChange = nodeType.prototype.onConnectionsChange
+
+            nodeType.prototype.onConnectionsChange = function(...args) {
+                const r = onConnectionsChange?.onConnectionsChange.apply(this, args)
+                this.refreshNode()
+            }
             
 
         }

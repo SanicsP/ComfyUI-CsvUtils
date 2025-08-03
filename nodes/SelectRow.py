@@ -6,7 +6,7 @@ class SelectRow :
 
         return {
             "required" : {
-                "csv_data" : ("*" ,),
+                "csv_data" : ("CSVDATA" ,),
                 "row" : ("INT",{"min" : 0 , "max" : 9223372036854776000}) , 
             }
         }
@@ -15,7 +15,7 @@ class SelectRow :
     
     FUNCTION = "execute"
     
-    RETURN_TYPES = ("*",)
+    RETURN_TYPES = ("CSVROW",)
     
     RETURN_NAMES = ("selected_row",)
     
