@@ -5,7 +5,7 @@ import {findNodeAncestor} from "./utils/comfy_graph.js"
 
 
 
-function refreshAllCombos()
+async function refreshAllCombos()
 {
     app.graph._nodes.forEach((node)=> {
         if(node.comfyClass == NODE_CLASS) {
@@ -74,8 +74,8 @@ app.registerExtension({
 
     async setup() {
 
-       const original_getCanvasMenuOptions = nodeTypeCanvas.prototype.getCanvasMenuOptions
-        nodeTypeCanvas.prototype.getCanvasMenuOptions = function() {
+       const original_getCanvasMenuOptions = LGraphCanvas.prototype.getCanvasMenuOptions
+        LGraphCanvas.prototype.getCanvasMenuOptions = function() {
             
             const options = original_getCanvasMenuOptions.apply(this, arguments)
 
@@ -90,6 +90,15 @@ app.registerExtension({
             return options
         }
 
+        const onConnectionChange = LGraph.prototype.onConnectionChange
+
+        LGraph.prototype.onConnectionChange = function(args) {
+            
+            const r = onConnectionChange?.apply(this , arguments)
+            refreshAllCombos()
+            return r
+        }
+
         
     } ,
 
@@ -100,7 +109,7 @@ app.registerExtension({
             const node = this 
             nodeType.prototype.onNodeCreated = function(...args) { 
                 
-                this.refreshNode = () => refreshList.call(this ,
+                this.refreshNode = async () => refreshList.call(this ,
                     this.widgets.find(w => w.name == 'fieldnameCombo')  ,  
                     this.widgets.find(w => w.name == 'fieldname')
                 )
@@ -121,12 +130,7 @@ app.registerExtension({
                 return r 
             }
 
-            const onConnectionsChange = nodeType.prototype.onConnectionsChange
-
-            nodeType.prototype.onConnectionsChange = function(...args) {
-                const r = onConnectionsChange?.onConnectionsChange.apply(this, args)
-                this.refreshNode()
-            }
+            
             
 
         }
