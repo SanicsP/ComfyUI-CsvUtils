@@ -7,8 +7,8 @@ class SearchRow :
         return {
             "required" : {
                 "csv_data" : ("CSVDATA",),
-                "fieldname" : ("STRING", {"default" : ""}) ,
-                "value" : ("STRING",{"default" : ""}) 
+                "col_name" : ("STRING", {"default" : ""}) ,
+                "row_name" : ("STRING",{"default" : ""}) 
             }
         }
     
@@ -26,13 +26,13 @@ class SearchRow :
         Select a row from a list of rows, this node works with: "load csv data from file" and "select data from csv row"
     """
     
-    def execute(self , csv_data , fieldname , value) : 
+    def execute(self , csv_data , col_name , row_name) : 
         
         try : 
             for row in csv_data["rows"] : 
-                if value == row[fieldname] : 
+                if row_name == row[col_name] : 
                     return (row ,)
-            raise RuntimeError( value , "not found in" , fieldname , "column")
+            raise RuntimeError( row_name , "not found in" , col_name , "column")
         except KeyError : 
-            raise RuntimeError("the field" , fieldname , "does not exists in your file. Your file has the following fieldnames : " , csv_data["fieldnames"])        
+            raise RuntimeError("the field" , col_name , "does not exists in your file. Your file has the following col_names : " , csv_data["col_names"])        
 

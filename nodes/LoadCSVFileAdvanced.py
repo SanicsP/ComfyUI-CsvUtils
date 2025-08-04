@@ -33,7 +33,6 @@ class LoadCSVFileAdvanced :
     def execute(self , file_path , row) : 
         
         csv_data = CSVManager.loadFile(file_path)
-        
         outputs = []
 
         for field in csv_data["fieldnames"] : 

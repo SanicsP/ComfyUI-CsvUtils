@@ -27,13 +27,14 @@ class CSVPromptLoader :
     """
 
     def execute(self , file_path , row) :
-        
-        prompt_list = get_prompt_list(file_path)
-        
-        prompt_row = get_prompt_row(prompt_list, row)
+        try : 
+            prompt_list = get_prompt_list(file_path)
+            
+            prompt_row = get_prompt_row(prompt_list, row)
 
-        if prompt_row["positive"] == "" : 
-            raise Exception("The positive prompt is empty")
+            if prompt_row["positive"] == "" : 
+                raise Exception("The positive prompt is empty")
         
-        return (prompt_row["positive"] , prompt_row["negative"])
-
+            return (prompt_row["positive"] , prompt_row["negative"])
+        except Exception as err: 
+            print("[csv-utils] error : " , err)

@@ -103,7 +103,7 @@ app.registerExtension({
     } ,
 
     async beforeRegisterNodeDef(nodeType, nodeData, app) {
-        if(nodeType.comfyClass == NODE_CLASS) {
+        if(nodeType.comfyClass == NODE_CLASS ) {
             
             const onNodeCreated = nodeType.prototype.onNodeCreated
             const node = this 

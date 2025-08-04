@@ -66,7 +66,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "SelectDataByField" : "Select Data From CSV Row" ,
     "CSVAdvancedSearch" : "Search From CSV File" , 
     "LoadCSVFileAdvanced" : "Load Row From File" , 
-    "SearchRow" : "Find Row By value" , 
+    "SearchRow" : "Find Row By Name" , 
     "SelectColumnFromRow" : "Select Column From Row",
     "XMLPromptComposer" : "XMLPromptComposer" , 
     "PromptComposer" : "PromptComposer" , 

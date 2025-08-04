@@ -24,6 +24,9 @@ class LoadCSVFile :
         Loads all data from a csv file into a list of rows, works with "select row from csv data" node
     """
     
+    @classmethod
+    def IS_CHANGED(file_path):
+        return float("NaN")
 
     def execute(self , file_path) : 
         csv_data = CSVManager.loadFile(file_path)
