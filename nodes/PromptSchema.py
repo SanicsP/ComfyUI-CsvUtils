@@ -9,7 +9,6 @@ class PromptSchema :
             } , 
         }
 
-    
     CATEGORY = "csv_tools/prompting"
     
     FUNCTION = "execute"
